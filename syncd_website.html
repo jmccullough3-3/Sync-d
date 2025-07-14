@@ -531,9 +531,12 @@
                 <h1 class="section-title">Songs of the Week</h1>
                 
                 <div class="featured-card">
-                    <h2 class="featured-title">🎵 Sync's Song of the Week</h2>
-                    <p>Discover this week's handpicked masterpiece that's resonating with listeners worldwide</p>
-                </div>
+  <h2 class="featured-title">🎵 Sync’d Song of the Week</h2>
+  <p id="sotw-title" style="font-size: 1.3rem; font-weight: 700;"></p>
+  <p id="sotw-artist" style="color: var(--text-secondary); font-size: 1.1rem;"></p>
+  <p id="sotw-commentary" style="margin-top: 0.5rem;"></p>
+</div>
+
 
                 <div class="categories-grid">
                     <div class="category-card">
@@ -800,6 +803,20 @@
             });
         });
     });
+document.addEventListener('DOMContentLoaded', function() {
+  fetch('song_of_the_week.json')
+    .then(res => res.json())
+    .then(data => {
+      document.querySelector('#sotw-title').innerText = data.title;
+      document.querySelector('#sotw-artist').innerText = `by ${data.artist}`;
+      document.querySelector('#sotw-commentary').innerText = data.commentary;
+    })
+    .catch(err => {
+      console.error("Failed to load Song of the Week:", err);
+      document.querySelector('#sotw-commentary').innerText = "🎧 Song of the Week not available.";
+    });
+});
+
 </script>
 </body>
 </html>
